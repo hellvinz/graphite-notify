@@ -15,13 +15,21 @@ module Bundler
           notify graphite that a deployment occured
         DESC
         send task_method, :notify_deploy, :on_error => :continue do
-          `curl -s -X POST #{graphite_url} -d '{"what": "deploy #{application} in #{environment}", "tags": "#{application},#{environment},#{real_revision},deploy"}'`
+          if exists?(:stage)
+            `curl -s -X POST #{graphite_url} -d '{"what": "deploy #{application} in #{stage}", "tags": "#{application},#{stage},#{real_revision},deploy"}'`
+          else
+            `curl -s -X POST #{graphite_url} -d '{"what": "deploy #{application}", "tags": "#{application},#{real_revision},deploy"}'`
+          end
         end
         send :desc, <<-DESC
           notify graphite that a rollback occured
         DESC
         send task_method, :notify_rollback, :on_error => :continue do
-          `curl -s -X POST #{graphite_url} -d '{"what": "rollback #{application} in #{environment}", "tags": "#{application},#{environment},#{real_revision},rollback"}'`
+          if exists?(:stage)
+            `curl -s -X POST #{graphite_url} -d '{"what": "rollback #{application} in #{environment}", "tags": "#{application},#{stage},#{real_revision},rollback"}'`
+          else
+            `curl -s -X POST #{graphite_url} -d '{"what": "rollback #{application}", "tags": "#{application},#{real_revision},rollback"}'`
+          end
         end
       end
     end
