@@ -1,4 +1,4 @@
-module Bundler
+module GraphiteNotify
   class Deployment
     def self.define_task(context, task_method = :task, opts = {})
       if defined?(Capistrano) && context.is_a?(Capistrano::Configuration)

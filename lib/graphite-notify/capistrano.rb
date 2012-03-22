@@ -5,5 +5,5 @@ require 'graphite-notify/deployment'
 Capistrano::Configuration.instance(:must_exist).load do
   after "deploy:restart", "graphite:notify_deploy"
   after "rollback:restart", "graphite:notify_rollback"
-  Bundler::Deployment.define_task(self, :task, :except => { :no_release => true })
+  GraphiteNotify::Deployment.define_task(self, :task, :except => { :no_release => true })
 end
