@@ -10,15 +10,17 @@ module Bundler
       graphite_url = context.fetch(:graphite_url, false)
       raise "Missing graphite_url" unless graphite_url
 
+      local_user = ENV['USER'] || ENV['USERNAME']
+
       context.send :namespace, :graphite do
         send :desc, <<-DESC
           notify graphite that a deployment occured
         DESC
         send task_method, :notify_deploy, :on_error => :continue do
           if exists?(:stage)
-            `curl -s -X POST #{graphite_url} -d '{"what": "deploy #{application} in #{stage}", "tags": "#{application},#{stage},#{real_revision},deploy"}'`
+            `curl -s -X POST #{graphite_url} -d '{"what": "deploy #{application} in #{stage}", "tags": "#{application},#{stage},#{real_revision},deploy", "data": "#{local_user}"}'`
           else
-            `curl -s -X POST #{graphite_url} -d '{"what": "deploy #{application}", "tags": "#{application},#{real_revision},deploy"}'`
+            `curl -s -X POST #{graphite_url} -d '{"what": "deploy #{application}", "tags": "#{application},#{real_revision},deploy", "data": "#{local_user}"}'`
           end
         end
         send :desc, <<-DESC
@@ -26,9 +28,9 @@ module Bundler
         DESC
         send task_method, :notify_rollback, :on_error => :continue do
           if exists?(:stage)
-            `curl -s -X POST #{graphite_url} -d '{"what": "rollback #{application} in #{environment}", "tags": "#{application},#{stage},#{real_revision},rollback"}'`
+            `curl -s -X POST #{graphite_url} -d '{"what": "rollback #{application} in #{environment}", "tags": "#{application},#{stage},#{real_revision},rollback", "data": "#{local_user}"}'`
           else
-            `curl -s -X POST #{graphite_url} -d '{"what": "rollback #{application}", "tags": "#{application},#{real_revision},rollback"}'`
+            `curl -s -X POST #{graphite_url} -d '{"what": "rollback #{application}", "tags": "#{application},#{real_revision},rollback", "data": "#{local_user}"}'`
           end
         end
       end
