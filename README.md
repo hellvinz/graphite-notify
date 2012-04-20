@@ -18,3 +18,13 @@ require "graphite-notify/capistrano"
 graphite: http://readthedocs.org/docs/graphite
 
 curl: http://curl.haxx.se/
+
+
+## Tricks
+
+As it is a capistrano task you can call it directly:
+
+```
+cap graphite:notify_deploy
+```
+ 
