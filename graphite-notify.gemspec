@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Vincent Hellot"]
   s.email       = ["hellvinz@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/hellvinz/graphite-notify"
   s.summary     = %q{notify graphite on deploy or rollback}
   s.description = %q{notify graphite on deploy or rollback}
 
