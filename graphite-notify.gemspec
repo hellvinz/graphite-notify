@@ -20,4 +20,11 @@ Gem::Specification.new do |s|
   git_files            = `git ls-files`.split("\n") rescue ''
   s.files              = git_files
   s.require_paths      = ["lib"]
+
+  s.add_dependency "capistrano"
+  s.add_development_dependency "rspec", "~> 1.3.2"
+  s.add_development_dependency "webmock"
+  s.add_development_dependency "capistrano-spec"
+  s.add_development_dependency "yard"
+  s.add_development_dependency "redcarpet"
 end

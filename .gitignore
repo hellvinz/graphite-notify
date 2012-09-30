@@ -1,2 +1,7 @@
 .git
 *.swp
+.bundle
+doc
+.rbenv-version
+.yardoc
+Gemfile.lock

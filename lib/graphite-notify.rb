@@ -1,0 +1,1 @@
+require 'graphite-notify/capistrano'
