@@ -17,19 +17,25 @@ module Capistrano
         namespace :graphite do
           desc 'notify graphite that a deployment occured'
           task :notify_deploy, :on_error => :continue do
-            if respond_to?(:stage)
-              Net::HTTP.post_form(URI(graphite_url), "what"=> "deploy #{application} in #{stage}", "tags" => "#{application},#{stage},#{real_revision},deploy", "data"=> "#{local_user}")
-            else
-              Net::HTTP.post_form(URI(graphite_url), "what"=> "deploy #{application}", "tags" => "#{application},#{real_revision},deploy", "data"=> "#{local_user}")
+            uri = URI(graphite_url)
+            Net::HTTP.start(uri.host, uri.port)  do |http|
+              if respond_to?(:stage)
+                http.post(uri.path, "\"what\"=> \"deploy #{application} in #{stage}\", \"tags\" => \"#{application},#{stage},#{real_revision},deploy\", \"data\"=> \"#{local_user}\"")
+              else
+                http.post(uri.path, "\"what\"=> \"deploy #{application}\", \"tags\" => \"#{application},#{real_revision},deploy\", \"data\"=> \"#{local_user}\"")
+              end
             end
           end
 
           desc 'notify graphite that a rollback occured'
           task :notify_rollback, :on_error => :continue do
-            if respond_to?(:stage)
-              Net::HTTP.post_form(URI(graphite_url), "what"=> "rollback #{application} in #{stage}", "tags" => "#{application},#{stage},#{real_revision},rollback", "data"=> "#{local_user}")
-            else
-              Net::HTTP.post_form(URI(graphite_url), "what"=> "rollback #{application}", "tags" => "#{application},#{real_revision},rollback", "data"=> "#{local_user}")
+            uri = URI(graphite_url)
+            Net::HTTP.start(uri.host, uri.port)  do |http|
+              if respond_to?(:stage)
+                http.post(uri.path, "\"what\"=> \"rollback #{application} in #{stage}\", \"tags\" => \"#{application},#{stage},#{real_revision},rollback\", \"data\"=> \"#{local_user}\"")
+              else
+                http.post(uri.path, "\"what\"=> \"rollback #{application}\", \"tags\" => \"#{application},#{real_revision},rollback\", \"data\"=> \"#{local_user}\"")
+              end
             end
           end
         end

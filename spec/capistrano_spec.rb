@@ -20,18 +20,18 @@ describe Capistrano::Graphite, "loaded into a configuration" do
   context 'without capistrano-multistage support' do
     it 'should notify graphite of a deploy' do
       stub_request(:post, "http://localhost/").
-           with(:body => {"data"=>"testuser", "tags"=>"testapp,randomsha,deploy", "what"=>"deploy testapp"},
-                :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/x-www-form-urlencoded', 'User-Agent'=>'Ruby'}).
-           to_return(:status => 200, :body => "", :headers => {})
+        with(:body => "\"what\"=> \"deploy testapp\", \"tags\" => \"testapp,randomsha,deploy\", \"data\"=> \"testuser\"",
+             :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+        to_return(:status => 200, :body => "", :headers => {})
       @configuration.find_and_execute_task('graphite:notify_deploy')
 
     end
 
     it 'should notify graphite of a rollback' do
       stub_request(:post, "http://localhost/").
-           with(:body => {"data"=>"testuser", "tags"=>"testapp,randomsha,rollback", "what"=>"rollback testapp"},
-                :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/x-www-form-urlencoded', 'User-Agent'=>'Ruby'}).
-           to_return(:status => 200, :body => "", :headers => {})
+        with(:body => "\"what\"=> \"rollback testapp\", \"tags\" => \"testapp,randomsha,rollback\", \"data\"=> \"testuser\"",
+             :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+        to_return(:status => 200, :body => "", :headers => {})
       @configuration.find_and_execute_task('graphite:notify_rollback')
     end
   end
@@ -42,18 +42,18 @@ describe Capistrano::Graphite, "loaded into a configuration" do
     end
     it 'should notify graphite of a deploy' do
       stub_request(:post, "http://localhost/").
-           with(:body => {"data"=>"testuser", "tags"=>"testapp,test,randomsha,deploy", "what"=>"deploy testapp in test"},
-                :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/x-www-form-urlencoded', 'User-Agent'=>'Ruby'}).
-           to_return(:status => 200, :body => "", :headers => {})
+        with(:body => "\"what\"=> \"deploy testapp in test\", \"tags\" => \"testapp,test,randomsha,deploy\", \"data\"=> \"testuser\"",
+             :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+        to_return(:status => 200, :body => "", :headers => {})
       @configuration.find_and_execute_task('graphite:notify_deploy')
 
     end
 
     it 'should notify graphite of a rollback' do
       stub_request(:post, "http://localhost/").
-           with(:body => {"data"=>"testuser", "tags"=>"testapp,test,randomsha,rollback", "what"=>"rollback testapp in test"},
-                :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/x-www-form-urlencoded', 'User-Agent'=>'Ruby'}).
-           to_return(:status => 200, :body => "", :headers => {})
+        with(:body => "\"what\"=> \"rollback testapp in test\", \"tags\" => \"testapp,test,randomsha,rollback\", \"data\"=> \"testuser\"",
+             :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+        to_return(:status => 200, :body => "", :headers => {})
       @configuration.find_and_execute_task('graphite:notify_rollback')
     end
   end
