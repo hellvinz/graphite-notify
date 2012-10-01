@@ -20,9 +20,9 @@ module Capistrano
             uri = URI(graphite_url)
             Net::HTTP.start(uri.host, uri.port)  do |http|
               if respond_to?(:stage)
-                http.post(uri.path, "\"what\"=> \"deploy #{application} in #{stage}\", \"tags\" => \"#{application},#{stage},#{real_revision},deploy\", \"data\"=> \"#{local_user}\"")
+                http.post(uri.path, "{\"what\": \"deploy #{application} in #{stage}\", \"tags\": \"#{application},#{stage},#{real_revision},deploy\", \"data\": \"#{local_user}\"}")
               else
-                http.post(uri.path, "\"what\"=> \"deploy #{application}\", \"tags\" => \"#{application},#{real_revision},deploy\", \"data\"=> \"#{local_user}\"")
+                http.post(uri.path, "{\"what\": \"deploy #{application}\", \"tags\": \"#{application},#{real_revision},deploy\", \"data\": \"#{local_user}\"}")
               end
             end
           end
@@ -32,9 +32,9 @@ module Capistrano
             uri = URI(graphite_url)
             Net::HTTP.start(uri.host, uri.port)  do |http|
               if respond_to?(:stage)
-                http.post(uri.path, "\"what\"=> \"rollback #{application} in #{stage}\", \"tags\" => \"#{application},#{stage},#{real_revision},rollback\", \"data\"=> \"#{local_user}\"")
+                http.post(uri.path, "{\"what\": \"rollback #{application} in #{stage}\", \"tags\": \"#{application},#{stage},#{real_revision},rollback\", \"data\": \"#{local_user}\"}")
               else
-                http.post(uri.path, "\"what\"=> \"rollback #{application}\", \"tags\" => \"#{application},#{real_revision},rollback\", \"data\"=> \"#{local_user}\"")
+                http.post(uri.path, "{\"what\": \"rollback #{application}\", \"tags\": \"#{application},#{real_revision},rollback\", \"data\": \"#{local_user}\"}")
               end
             end
           end
