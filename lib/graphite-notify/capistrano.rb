@@ -1,3 +1,4 @@
+require 'net/http'
 require 'capistrano'
 module Capistrano
   module Graphite
