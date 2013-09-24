@@ -1,5 +1,7 @@
 require 'net/http'
 require 'capistrano'
+require 'uri'
+
 module Capistrano
   module Graphite
     # Called when a Capistrano::Configuration.instance exists. Will define two tasks: 
