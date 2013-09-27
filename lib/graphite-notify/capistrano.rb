@@ -1,5 +1,7 @@
 require 'net/http'
 require 'capistrano'
+require 'uri'
+
 module Capistrano
   module Graphite
     # Called when a Capistrano::Configuration.instance exists. Will define two tasks: 
@@ -17,7 +19,7 @@ module Capistrano
         namespace :graphite do
           desc 'notify graphite that a deployment occured'
           task :notify_deploy, :on_error => :continue do
-            uri = URI(graphite_url)
+            uri = URI::parse(graphite_url)
             Net::HTTP.start(uri.host, uri.port)  do |http|
               if respond_to?(:stage)
                 http.post(uri.path, "{\"what\": \"deploy #{application} in #{stage}\", \"tags\": \"#{application},#{stage},#{real_revision},deploy\", \"data\": \"#{local_user}\"}")
@@ -29,7 +31,7 @@ module Capistrano
 
           desc 'notify graphite that a rollback occured'
           task :notify_rollback, :on_error => :continue do
-            uri = URI(graphite_url)
+            uri = URI::parse(graphite_url)
             Net::HTTP.start(uri.host, uri.port)  do |http|
               if respond_to?(:stage)
                 http.post(uri.path, "{\"what\": \"rollback #{application} in #{stage}\", \"tags\": \"#{application},#{stage},#{real_revision},rollback\", \"data\": \"#{local_user}\"}")
