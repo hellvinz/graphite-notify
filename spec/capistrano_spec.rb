@@ -14,7 +14,7 @@ describe Capistrano::Graphite, "loaded into a configuration" do
 
   it 'should define callbacks' do
     @configuration.should callback('graphite:notify_deploy').after('deploy:restart')
-    @configuration.should callback('graphite:notify_rollback').after('deploy:rollback')
+    @configuration.should callback('graphite:notify_rollback').after('rollback:restart')
   end
 
   context 'without capistrano-multistage support' do

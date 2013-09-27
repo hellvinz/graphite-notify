@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.require_paths      = ["lib"]
 
   s.add_dependency "capistrano"
-  s.add_development_dependency "rspec", "~> 1.3.2"
+  s.add_dependency "rspec"
   s.add_development_dependency "webmock"
   s.add_development_dependency "capistrano-spec"
   s.add_development_dependency "yard"
