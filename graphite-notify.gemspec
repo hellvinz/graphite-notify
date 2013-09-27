@@ -26,5 +26,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "webmock"
   s.add_development_dependency "capistrano-spec"
   s.add_development_dependency "yard"
-  s.add_development_dependency "redcarpet"
+  s.add_development_dependency "redcarpet", "~>2.3.0"
 end
