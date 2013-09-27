@@ -20,8 +20,7 @@ describe Capistrano::Graphite, "loaded into a configuration" do
   context 'without capistrano-multistage support' do
     it 'should notify graphite of a deploy' do
       stub_request(:post, "http://localhost/").
-        with(:body => "{\"what\": \"deploy testapp\", \"tags\": \"testapp,randomsha,deploy\", \"data\": \"testuser\"}",
-             :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+        with(:body => "{\"what\": \"deploy testapp\", \"tags\": \"testapp,randomsha,deploy\", \"data\": \"testuser\"}").
         to_return(:status => 200, :body => "", :headers => {})
       @configuration.find_and_execute_task('graphite:notify_deploy')
 
@@ -29,8 +28,7 @@ describe Capistrano::Graphite, "loaded into a configuration" do
 
     it 'should notify graphite of a rollback' do
       stub_request(:post, "http://localhost/").
-        with(:body => "{\"what\": \"rollback testapp\", \"tags\": \"testapp,randomsha,rollback\", \"data\": \"testuser\"}",
-             :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+        with(:body => "{\"what\": \"rollback testapp\", \"tags\": \"testapp,randomsha,rollback\", \"data\": \"testuser\"}").
         to_return(:status => 200, :body => "", :headers => {})
       @configuration.find_and_execute_task('graphite:notify_rollback')
     end
@@ -42,8 +40,7 @@ describe Capistrano::Graphite, "loaded into a configuration" do
     end
     it 'should notify graphite of a deploy' do
       stub_request(:post, "http://localhost/").
-        with(:body => "{\"what\": \"deploy testapp in test\", \"tags\": \"testapp,test,randomsha,deploy\", \"data\": \"testuser\"}",
-             :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+        with(:body => "{\"what\": \"deploy testapp in test\", \"tags\": \"testapp,test,randomsha,deploy\", \"data\": \"testuser\"}").
         to_return(:status => 200, :body => "", :headers => {})
       @configuration.find_and_execute_task('graphite:notify_deploy')
 
@@ -51,8 +48,7 @@ describe Capistrano::Graphite, "loaded into a configuration" do
 
     it 'should notify graphite of a rollback' do
       stub_request(:post, "http://localhost/").
-        with(:body => "{\"what\": \"rollback testapp in test\", \"tags\": \"testapp,test,randomsha,rollback\", \"data\": \"testuser\"}",
-             :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+        with(:body => "{\"what\": \"rollback testapp in test\", \"tags\": \"testapp,test,randomsha,rollback\", \"data\": \"testuser\"}").
         to_return(:status => 200, :body => "", :headers => {})
       @configuration.find_and_execute_task('graphite:notify_rollback')
     end
