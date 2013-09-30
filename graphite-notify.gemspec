@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/hellvinz/graphite-notify"
   s.summary     = %q{notify graphite on deploy or rollback}
   s.description = %q{notify graphite on deploy or rollback}
+  s.license     = 'MIT'
 
   s.required_ruby_version     = ">= 1.8.7"
   s.required_rubygems_version = ">= 1.3.6"

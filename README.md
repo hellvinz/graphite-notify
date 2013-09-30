@@ -26,3 +26,6 @@ As it is a capistrano task you can call it directly:
 cap graphite:notify_deploy
 ```
  
+## License
+
+graphite-notify is released under the [MIT License](http://www.opensource.org/licenses/MIT).
