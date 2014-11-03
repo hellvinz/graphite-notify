@@ -36,7 +36,11 @@ module Capistrano
           desc 'notify graphite that a rollback occured'
           task :notify_rollback, :on_error => :continue do
             uri = URI::parse(graphite_url)
-            Net::HTTP.start(uri.host, uri.port)  do |http|
+            http = Net::HTTP.new(uri.host, uri.port)
+            if uri.scheme == 'https'
+              http.use_ssl = true
+            end
+            http.start  do |http|
               if respond_to?(:stage)
                 http.post(uri.path, "{\"what\": \"rollback #{application} in #{stage}\", \"tags\": \"#{application},#{stage},#{real_revision},rollback\", \"data\": \"#{local_user}\"}")
               else
