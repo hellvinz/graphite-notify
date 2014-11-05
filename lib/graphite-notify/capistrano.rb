@@ -24,12 +24,16 @@ module Capistrano
             if uri.scheme == 'https'
               http.use_ssl = true
             end
-            http.start  do |http|
-              if respond_to?(:stage)
-                http.post(uri.path, "{\"what\": \"deploy #{application} in #{stage}\", \"tags\": \"#{application},#{stage},#{real_revision},deploy\", \"data\": \"#{local_user}\"}")
-              else
-                http.post(uri.path, "{\"what\": \"deploy #{application}\", \"tags\": \"#{application},#{real_revision},deploy\", \"data\": \"#{local_user}\"}")
+            begin
+              http.start  do |http|
+                if respond_to?(:stage)
+                  http.post(uri.path, "{\"what\": \"deploy #{application} in #{stage}\", \"tags\": \"#{application},#{stage},#{real_revision},deploy\", \"data\": \"#{local_user}\"}")
+                else
+                  http.post(uri.path, "{\"what\": \"deploy #{application}\", \"tags\": \"#{application},#{real_revision},deploy\", \"data\": \"#{local_user}\"}")
+                end
               end
+            rescue Exception => e
+              puts "graphite:notify_deploy failed: #{e.message}"
             end
           end
 
@@ -40,12 +44,16 @@ module Capistrano
             if uri.scheme == 'https'
               http.use_ssl = true
             end
-            http.start  do |http|
-              if respond_to?(:stage)
-                http.post(uri.path, "{\"what\": \"rollback #{application} in #{stage}\", \"tags\": \"#{application},#{stage},#{real_revision},rollback\", \"data\": \"#{local_user}\"}")
-              else
-                http.post(uri.path, "{\"what\": \"rollback #{application}\", \"tags\": \"#{application},#{real_revision},rollback\", \"data\": \"#{local_user}\"}")
+            begin
+              http.start  do |http|
+                if respond_to?(:stage)
+                  http.post(uri.path, "{\"what\": \"rollback #{application} in #{stage}\", \"tags\": \"#{application},#{stage},#{real_revision},rollback\", \"data\": \"#{local_user}\"}")
+                else
+                  http.post(uri.path, "{\"what\": \"rollback #{application}\", \"tags\": \"#{application},#{real_revision},rollback\", \"data\": \"#{local_user}\"}")
+                end
               end
+            rescue Exception => e
+              puts "graphite:notify_rollback failed: #{e.message}"
             end
           end
         end
