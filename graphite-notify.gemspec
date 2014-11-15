@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.files              = git_files
   s.require_paths      = ["lib"]
 
-  s.add_dependency "capistrano"
+  s.add_dependency "capistrano", "<3"
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec", "~> 2.14"
   s.add_development_dependency "webmock", "~> 1.13"
