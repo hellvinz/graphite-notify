@@ -23,9 +23,10 @@ Gem::Specification.new do |s|
   s.require_paths      = ['lib']
 
   s.add_dependency 'capistrano', '<3'
+  s.add_dependency 'json', '<3'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec', '~> 2.14'
-  s.add_development_dependency 'webmock', '~> 1.13'
+  s.add_development_dependency 'webmock', '~> 1.20.4'
   s.add_development_dependency 'capistrano-spec', '~>0.6.3'
   s.add_development_dependency 'yard'
   s.add_development_dependency 'redcarpet', '~>2.3.0'
