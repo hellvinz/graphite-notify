@@ -1,0 +1,8 @@
+Style/LineLength:
+  Max: 110
+  Exclude:
+    - spec/capistrano_spec.rb
+
+# Enforce Ruby 1.8.7 compatible syntax
+HashSyntax:
+  EnforcedStyle: hash_rockets
