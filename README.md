@@ -1,6 +1,9 @@
 # Graphite Notify
 
-Send deployment events to graphite
+Send capistrano deployment events to graphite
+
+Warning: this gem works with capistrano 2.x, for capistrano 3.x see [this project](https://github.com/scottsuch/capistrano-graphite)
+
 [![Build Status](https://travis-ci.org/hellvinz/graphite-notify.png)](https://travis-ci.org/hellvinz/graphite-notify)
 
 More information about events https://code.launchpad.net/~lucio.torre/graphite/add-events/+merge/69142
